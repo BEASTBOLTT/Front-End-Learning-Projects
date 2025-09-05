@@ -26,9 +26,7 @@ body{
     padding: 0.1rem;
 }
 
-/* .header{
-    border: 1px solid black;
-} */
+
 
 .header-content{
     max-width: 1280px;
@@ -553,7 +551,7 @@ body{
 
 .news-email{
     background-color: var(--background-color);
-    /* width: 100%; */
+    
     color: #333;
     outline: none;
     border: 1px solid #ccc;
