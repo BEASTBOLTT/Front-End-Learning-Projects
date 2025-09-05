@@ -1,0 +1,118 @@
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+html,body{
+height: 100%;
+width: 100%;
+}
+a{
+    text-decoration: none;
+}
+.container{
+    max-width: 80vw;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+.head{
+    margin-bottom: 3rem;
+}
+#headingtext{
+    text-align: center;
+    font-size: 1.6rem;
+    line-height: 2rem;
+    font-weight: 700rem;
+    margin-bottom: 1.2rem;
+}
+#headingpara{
+    /* margin-top: 2rem; */
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto;
+}
+.mainc{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    justify-content: center;
+}
+.cardcontainer{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgb(86, 82, 82);
+    border-radius: 0.5rem;
+    gap: 1.5rem;
+}
+#cardimg{
+    position: relative;
+    overflow: hidden;
+    height: 15rem;
+}
+#cardimg img{
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+.cardcontainer:hover #cardimg{
+    transform: scale(1.1);
+    transition-duration: 200ms;
+}
+.cardtext{
+    display: flex;
+    flex-direction: column;
+}
+#cardhead{
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+    text-align: center;
+}
+#cardhead:hover{
+    color: rgb(142, 142, 185);
+}
+.cardpara{
+    text-align: center;
+}
+#cardfoot{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 0 1.5rem;
+    padding-bottom: 1.5rem;
+}
+.cardauthor{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+.cardauthor img{
+    height: 2.5rem;
+    width: 2.5rem;
+    overflow: hidden;
+    border: 1px solid rgb(150, 147, 147);
+    border-radius: 50%;
+    background-color: rgb(243, 239, 239);
+}
+.authinfo{
+    display: flex;
+    flex-direction: column;
+}
+.authname{
+    color: rgb(38, 38, 149);
+}
+
+.date{
+    color: rgb(136, 126, 126);
+}
+.tag{
+    font-size: 0.79rem;
+    border: 1px solid rgb(76, 71, 71);
+    border-radius: 4px;
+    line-height: 1.3rem;
+    padding: 0.25rem 0.5rem;
+    color: grey;
+}
