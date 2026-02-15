@@ -1,6 +1,10 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import './App.css'
+import NavBar from './components/NavBar'
+import Home from './components/Home'
+import Paste from './components/Paste'
+import ViewPaste from './components/ViewPaste'
 
 
 const router = createBrowserRouter(
@@ -9,6 +13,8 @@ const router = createBrowserRouter(
       path: "/",
       element:
       <div>
+        <NavBar/>
+        <Home/>
 
       </div>
     },
@@ -16,14 +22,16 @@ const router = createBrowserRouter(
       path: "/pastes",
       element:
       <div>
-        
+        <NavBar />
+        <Paste/>
       </div>
     },
     {
-      path: "/pastes:id",
+      path: "/pastes/:id",
       element:
       <div>
-        
+        <NavBar />
+        <ViewPaste/>
       </div>
     }
   ]
@@ -33,7 +41,7 @@ function App() {
 
   return (
     <div> 
-      Paste App Bana Rhe hai
+      <RouterProvider router = {router}/>
     </div>
   )
 }
