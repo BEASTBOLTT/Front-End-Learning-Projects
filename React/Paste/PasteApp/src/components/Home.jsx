@@ -14,11 +14,11 @@ const Home = () => {
         const paste ={
             title : title,
             content : value,
-            _id : pasteid || Date.now().toString(32),
+            _id : pasteId || Date.now().toString(32),
             createdAt: new Date().toISOString(),
         }
 
-        if(pasteid){
+        if(pasteId){
             dispatch(updateToPaste(paste))
             
         }
