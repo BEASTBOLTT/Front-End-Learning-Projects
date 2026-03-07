@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: 'Share Tech Mono', monospace;
+  color-scheme: dark;
+}
+
+body {
+  background-color: black;
+  /* color: #22c55e; */
+}
