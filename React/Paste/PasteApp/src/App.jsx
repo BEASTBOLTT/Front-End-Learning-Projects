@@ -1,48 +1,42 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
+import Home from "./components/Home"
+import Paste from "./components/Paste"
+import ViewPaste from "./components/ViewPaste"
+import Navbar from "./components/Navbar"
 
-import './App.css'
-import NavBar from './components/NavBar'
-import Home from './components/Home'
-import Paste from './components/Paste'
-import ViewPaste from './components/ViewPaste'
-
+<h1 className="text-5xl text-red-500">TAILWIND TEST</h1>
 
 const router = createBrowserRouter(
   [
     {
-      path: "/",
+      path:"/",
       element:
-      <div>
-        <NavBar/>
+      <div className="w-full h-full flex flex-col">
+        <Navbar/>
         <Home/>
-
       </div>
     },
     {
-      path: "/pastes",
-      element:
-      <div>
-        <NavBar />
-        <Paste/>
-      </div>
+      path:"/pastes",
+      element: <div className="w-full h-full flex flex-col">
+      <Navbar/>
+      <Paste/>
+    </div>
     },
     {
-      path: "/pastes/:id",
-      element:
-      <div>
-        <NavBar />
-        <ViewPaste/>
-      </div>
+      path:"/pastes/:id",
+      element: <div className="w-full h-full flex flex-col">
+      <Navbar/>
+      <ViewPaste/>
+    </div>,
     }
   ]
 )
+
 function App() {
-  
 
   return (
-    <div> 
-      <RouterProvider router = {router}/>
-    </div>
+    <RouterProvider router={router}/>
   )
 }
 
