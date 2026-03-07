@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import Home from "./components/Home"
 import Paste from "./components/Paste"
 import ViewPaste from "./components/ViewPaste"
-import Navbar from "./components/Navbar"
+import Navbar from "./components/NavBar"
 
 <h1 className="text-5xl text-red-500">TAILWIND TEST</h1>
 
