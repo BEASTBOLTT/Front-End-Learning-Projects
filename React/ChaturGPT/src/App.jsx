@@ -1,7 +1,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
-import { URL } from './constants';
+
 import Answer from './components/Answers';
 
 function App() {
@@ -48,7 +48,7 @@ function App() {
 
     setLoading(true);
 
-    let response = await fetch(URL, {
+    let response = await fetch(process.env.URL, {
       method:"POST",
       body: JSON.stringify(payload)
     })
