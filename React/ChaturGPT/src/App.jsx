@@ -5,21 +5,24 @@ import './App.css'
 import Answer from './components/Answers';
 
 function App() {
-  const[question, setQuestion] = useState('');
-  const[result,setResult]= useState([]);
-  const[recentHistory, setRecentHistory] = useState(JSON.parse(localStorage.getItem('History')));
-  const[selectedHistory, setSelectedHistory] = useState('');
-  const[loading, setLoading] = useState(false);
+
+  const URL = import.meta.env.VITE_API_URL;
+  const [question, setQuestion] = useState('');
+  const [result, setResult] = useState([]);
+  const [recentHistory, setRecentHistory] = useState(JSON.parse(localStorage.getItem('History')));
+  const [selectedHistory, setSelectedHistory] = useState('');
+  const [loading, setLoading] = useState(false);
   const scrollToBottom = useRef();
 
-  
-  const askQuestion= async ()=>{
 
-    if(!question && !selectedHistory){
+  const askQuestion = async () => {
+
+
+    if (!question && !selectedHistory) {
       return false;
     }
 
-    if(question){
+    if (question) {
       if (localStorage.getItem('History')) {
         let History = JSON.parse(localStorage.getItem('History'));
         History = [question, ...History];
@@ -32,8 +35,8 @@ function App() {
         setRecentHistory([question]);
       }
     }
-    
-    const payloadData = question?question:selectedHistory;
+
+    const payloadData = question ? question : selectedHistory;
     const payload = {
       "contents": [
         {
@@ -48,42 +51,49 @@ function App() {
 
     setLoading(true);
 
-    let response = await fetch(process.env.URL, {
-      method:"POST",
-      body: JSON.stringify(payload)
-    })
+    try {
+      let response = await fetch(URL, {
+        method: "POST",
 
-    response = await response.json();
+        body: JSON.stringify(payload)
+      })
 
-    let rawData = response.candidates[0].content.parts[0].text;
-    // rawData = rawData.replaceAll('#', ' ');
-    rawData = rawData.replaceAll('*', ' ');
-    rawData = rawData.split('\n');
-    rawData = rawData.map((item)=>item.trim());
-    
-    // console.log(rawData);
-    setResult([...result,{type:'q', text: question?question:selectedHistory},{type:'a', text: rawData}]);
+      response = await response.json();
+
+      let rawData = response.candidates[0].content.parts[0].text;
+      // rawData = rawData.replaceAll('#', ' ');
+      rawData = rawData.replaceAll('*', ' ');
+      rawData = rawData.split('\n');
+      rawData = rawData.map((item) => item.trim());
+
+      // console.log(rawData);
+      setResult([...result, { type: 'q', text: question ? question : selectedHistory }, { type: 'a', text: rawData }]);
+    } catch (err) {
+      console.error("FETCH ERROR:", err);
+      alert("Limit Exceeded. Please try again later.");
+    }
+
     setQuestion('');
     setTimeout(() => {
       scrollToBottom.current.scrollTop = scrollToBottom.current.scrollHeight;
-    },500);
+    }, 500);
 
     setLoading(false);
   }
 
-  const clearRecentHistory= ()=>{
+  const clearRecentHistory = () => {
     localStorage.setItem('History', JSON.stringify([]));
     setRecentHistory([]);
   }
 
-  const isEnter = (event)=>{
-    if(event.key === 'Enter'){
+  const isEnter = (event) => {
+    if (event.key === 'Enter') {
       askQuestion();
     }
   }
-  useEffect(()=>{
+  useEffect(() => {
     askQuestion();
-  },[selectedHistory])
+  }, [selectedHistory])
 
 
   return (
@@ -95,11 +105,11 @@ function App() {
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="white" d="M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zM17 6H7v13h10zM9 17h2V8H9zm4 0h2V8h-2zM7 6v13z" /></svg>
           </button>
         </div>
-        
+
         <ul className='text-left overflow-auto m-3'>
           {
-            recentHistory && recentHistory.map((item)=>(
-              <li onClick={()=> setSelectedHistory(item)} className='truncate p-1 pl-4 cursor-pointer hover:bg-zinc-700 rounded-2xl'>{item}</li>
+            recentHistory && recentHistory.map((item) => (
+              <li onClick={() => setSelectedHistory(item)} className='truncate p-1 pl-4 cursor-pointer hover:bg-zinc-700 rounded-2xl'>{item}</li>
             ))
           }
         </ul>
@@ -108,15 +118,15 @@ function App() {
         <div ref={scrollToBottom} className='container h-160 p-5 pl-60 pr-40 overflow-auto no-scrollbar w-250 '>
           <h1 className='text-white font-bold absolute left-90'>ChaturGPT</h1>
           <div className='text-white '>
-            {loading?
+            {loading ?
               <div>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" d="M12 6.99998C9.1747 6.99987 6.99997 9.24998 7 12C7.00003 14.55 9.02119 17 12 17C14.7712 17 17 14.75 17 12"><animateTransform attributeName="transform" attributeType="XML" dur="560ms" from="0,12,12" repeatCount="indefinite" to="360,12,12" type="rotate" /></path></svg>
               </div>
-            : null}
+              : null}
             <ul>
               {
                 result.map((item, index) => (
-                  <div key={index + Math.random()} className={item.type=='q' ? "flex justify-end" : ""}>
+                  <div key={index + Math.random()} className={item.type == 'q' ? "flex justify-end" : ""}>
                     {
                       item.type == 'q' ? <li key={index + Math.random()} className='text-right bg-[#303030] border border-[#303030] m-5 rounded-3xl p-2 pr-5 pl-5 w-fit '>
                         <Answer ans={item.text} index={index} totalResult={1} />
@@ -140,14 +150,14 @@ function App() {
                   
                 ))
               } */}
-            
-            
+
+
           </div>
         </div>
         <div className='bg-[#303030] mt-5 w-14/8 text-white ml-70 rounded-2xl border-zinc-700 border flex'>
           <input type="text"
-          onKeyDown={isEnter} 
-          onChange={(event) => setQuestion(event.target.value)} value={question} className='w-full h-full p-2.5 outline-0' placeholder='Ask Me Anything' />
+            onKeyDown={isEnter}
+            onChange={(event) => setQuestion(event.target.value)} value={question} className='w-full h-full p-2.5 outline-0' placeholder='Ask Me Anything' />
           <button onClick={askQuestion} className='p-2.5'>Ask</button>
 
         </div>
